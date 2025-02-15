@@ -1,12 +1,12 @@
-PythonƒXƒNƒŠƒvƒg‚ÅƒL[ƒJƒXƒ^ƒ}ƒCƒY [ Keyhac ]
+ï»¿Pythonã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã‚­ãƒ¼ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚º [ Keyhac ]
 
-’˜ìÒ: craftware
-˜A—æ: craftware@gmail.com
-í•Ê: ƒtƒŠ[ƒEƒFƒA
-“®ìŠÂ‹«: Windows 10 32bt/64bit
-ŠJ”­ŠÂ‹«: Python + Visual Studio 2019
-WebƒTƒCƒg: http://sites.google.com/site/craftware/
+è‘—ä½œè€…: craftware
+é€£çµ¡å…ˆ: craftware@gmail.com
+ç¨®åˆ¥: ãƒ•ãƒªãƒ¼ã‚¦ã‚§ã‚¢
+å‹•ä½œç’°å¢ƒ: Windows 10/11 64bit
+é–‹ç™ºç’°å¢ƒ: Python 3.13 + Visual Studio 2022
+Webã‚µã‚¤ãƒˆ: http://sites.google.com/site/craftware/
 
-Ú×‚É‚Â‚¢‚Ä‚ÍAƒhƒLƒ…ƒƒ“ƒg‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+è©³ç´°ã«ã¤ã„ã¦ã¯ã€ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 doc/ja/index.html
 
