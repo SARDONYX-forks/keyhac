@@ -1,9 +1,10 @@
 __pycache__/
 dist/
+dict/*.dat
+dict/migemo-dict
 doc/html/
 doc/obj/
 keyhac.ini
-tags
 config.py
 doc/html_ja/
 doc/html_en/
