@@ -114,14 +114,15 @@ def createZip( zip_filename, items ):
 
 def target_all():
 
-    target_compile()
-    target_copy()
+    target_modules()
     target_document()
     target_dist()
     target_archive()
 
 
-def target_compile():
+def target_modules():
+
+    rmtree("modules")
 
     # compile python source files
     compilePythonRecursively( "c:/python313/Lib", "modules/Lib", 
@@ -143,10 +144,7 @@ def target_compile():
             ]
         )
 
-def target_copy():
-
-    rmtree("modules")
-
+    # copy DLLs
     shutil.copy( "c:/python313/python313.dll", "python313.dll" )
 
     shutil.copytree( "c:/Python313/DLLs", "modules/DLLs", 
@@ -241,7 +239,7 @@ def target_archive():
 
 def target_clean():
     rmtree("dist")
-    rmtree("build")
+    rmtree("modules")
     rmtree("doc/html_en")
     rmtree("doc/html_ja")
 
