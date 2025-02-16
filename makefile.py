@@ -136,7 +136,10 @@ def target_modules():
     compilePythonRecursively( "c:/python313/Lib/site-packages/PIL", "modules/Lib/PIL" )
     compilePythonRecursively( "../ckit", "modules/Lib/ckit" )
     compilePythonRecursively( "../pyauto", "modules/Lib/pyauto" )
-    compilePythonRecursively( ".", "modules/keyhac", 
+    compilePythonRecursively( ".", "modules/keyhac",
+        directory_black_list = [
+            "tool",
+            ],
         file_black_list = [
             "makefile.py",
             "_config.py",
