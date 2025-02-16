@@ -312,7 +312,7 @@ class ConsoleWindow(ckit.TextWindow):
 
     def _wordbreak( self, s, pos, step ):
 
-        word_break_chars1 = "\"!@#$%^&*()+|~-=\`[]{};:',./<>?"
+        word_break_chars1 = "\"!@#$%^&*()+|~-=\\`[]{};:',./<>?"
         word_break_chars2 = " \t"
 
         while True:

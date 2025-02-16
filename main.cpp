@@ -7,17 +7,20 @@
 
 #if defined(_DEBUG)
 #undef _DEBUG
-#include "python.h"
+#include "Python.h"
 #define _DEBUG
 #else
-#include "python.h"
+#include "Python.h"
 #endif
 
-#define PYTHON_INSTALL_PATH L"c:\\python38"
+//FIXME : debugging error in Release build
+#undef _DEBUG
+
+#define PYTHON_INSTALL_PATH L"C:\\Python313"
 
 //--------------------------------------
 
-int AppMain()
+static int AppMain()
 {
 	std::wstring exe_dir;
 
@@ -62,6 +65,7 @@ int AppMain()
 		SetEnvironmentVariable(L"PATH", env_path.c_str());
 	}
 
+	/*
 	// Python home
 	{
 #if defined(_DEBUG)
@@ -70,7 +74,9 @@ int AppMain()
 		Py_SetPythonHome(const_cast<wchar_t*>(exe_dir.c_str()));
 #endif //_DEBUG
 	}
+	*/
 
+	/*
 	// Python module search path
 	{
 		std::wstring python_path;
@@ -93,7 +99,44 @@ int AppMain()
 
 	// Initialization
 	Py_Initialize();
+	*/
 
+	
+	// Initialize Python
+	{
+		PyConfig config;
+		PyConfig_InitPythonConfig(&config);
+		config.isolated = 1;
+		config.use_environment = 0;
+		config.user_site_directory = 0;
+		config.module_search_paths_set = 1;
+
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/extension").c_str() );
+#if defined(_DEBUG)
+		PyWideStringList_Append(&config.module_search_paths, exe_dir.c_str());
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/..").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (std::wstring(PYTHON_INSTALL_PATH) + L"\\Lib").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (std::wstring(PYTHON_INSTALL_PATH) + L"\\Lib\\site-packages").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (std::wstring(PYTHON_INSTALL_PATH) + L"\\DLLs").c_str());
+#else
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/library.zip").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/lib").c_str());
+#endif
+
+		/*
+		// optional but recommended
+		status = PyConfig_SetBytesString(&config, &config.program_name, argv[0]);
+		if (PyStatus_Exception(status)) {
+			goto exception;
+		}
+		*/
+
+		Py_InitializeFromConfig(&config);
+		PyConfig_Clear(&config);
+	}
+
+
+	/*
 	// Setup sys.argv
 	{
 		wchar_t * cmdline = GetCommandLine();
@@ -105,6 +148,7 @@ int AppMain()
 
 		LocalFree(argv);
 	}
+	*/
 
 	// enable DPI handling
 	SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
@@ -127,7 +171,7 @@ int AppMain()
 	return 0;
 }
 
-#if ! defined(_DEBUG)
+//#if ! defined(_DEBUG)
 
 int WINAPI WinMain(
 	HINSTANCE hInstance,      /* handle to current instance */
@@ -136,14 +180,16 @@ int WINAPI WinMain(
 	int nCmdShow              /* show state of window */
 	)
 {
+	printf("Hello from WinMain()\n");
 	return AppMain();
 }
 
-#else
+//#else
 
 int main(int argc, const char * argv[])
 {
+	printf("Hello from main()\n");
 	return AppMain();
 }
 
-#endif
+//#endif
