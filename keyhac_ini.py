@@ -25,7 +25,7 @@ def read():
     try:
         fd = open( ini_filename, "r" )
         msvcrt.locking( fd.fileno(), msvcrt.LK_LOCK, 1 )
-        ini.readfp(fd)
+        ini.read_file(fd)
         fd.close()
     except Exception as e:
         pass
