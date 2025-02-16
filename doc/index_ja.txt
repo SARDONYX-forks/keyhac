@@ -5,8 +5,8 @@
 :著作者: craftware
 :連絡先: craftware@gmail.com
 :種別: フリーウェア
-:動作環境: Windows 10 32bt/64bit
-:開発環境: Python + Visual Studio 2019
+:動作環境: Windows 10/11 64bit
+:開発環境: Python + Visual Studio 2022
 :Webサイト: http://sites.google.com/site/craftware/
 
 .. contents::
@@ -116,7 +116,7 @@
 
         Migemo はローマ字を入力して日本語をインクリメンタル検索するためのライブラリです。
 
-        Migemo の入力方法の詳細については、Migemoの本家サイト ( http://www.kaoriya.net/software/cmigemo/ ) を参照してください。
+        Migemo の入力方法の詳細については、Migemoの本家サイト ( https://www.kaoriya.net/software/cmigemo/ ) を参照してください。
 
         Migemoを使用する場合は、別途辞書ファイルを入手し、以下のように配置しておく必要があります。
 
@@ -128,7 +128,8 @@
 
         辞書ファイルは、C/Migemo のバイナリパッケージに含まれています。
 
-        http://cmigemo.googlecode.com/files/cmigemo-default-win64-20110227.zip
+        https://files.kaoriya.net/goto/cmigemo_w64
+
 
 
 インストール/アンインストール
@@ -143,12 +144,11 @@
            名前                解説
         ====================  ==========================================================
          keyhac.exe            プログラム本体
-         python35.dll          Pythonランタイムライブラリ
-         library.zip           スクリプトが格納されているアーカイブ
+         python3xx.dll         Pythonランタイムライブラリ
+         modules               実行モジュールが格納されているディレクトリ
          _config.py            デフォルト設定ファイル
          readme_en.txt         最初に読む文書 (英語)
          readme_ja.txt         最初に読む文書 (日本語)
-         lib/                  実行に必要なライブラリが格納されているディレクトリ
          extension/            ユーザサイドのスクリプトを入れるディレクトリ
          theme/                テーマのデータが格納されているディレクトリ
          dict/                 Migemoの辞書を入れるディレクトリ

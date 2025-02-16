@@ -5,8 +5,8 @@
 :Author: craftware
 :Contact: craftware@gmail.com
 :Software type: Free software
-:Supported OS: Windows 10  32bit/64bit
-:Dev env: Python + Visual Studio 2019
+:Supported OS: Windows 10/11 64bit
+:Dev env: Python + Visual Studio 2022
 :Website: http://sites.google.com/site/craftware/
 
 .. contents::
@@ -108,9 +108,9 @@ Incremental search
 
     **Migemo**
 
-        Migemo is a library for incremental search Japanese characters using Roman-ji.
+        Migemo is a library to incrementally search Japanese characters using Roman-ji.
 
-        For the detailed input method of Migemo, please refer the official website of Migemo ( http://www.kaoriya.net/software/cmigemo/ ).
+        For the detailed input method of Migemo, please refer the official website of Migemo ( https://www.kaoriya.net/software/cmigemo/ ).
 
         If you want to use Migemo, you need to obtain the dictionary files, and put them as follows.
 
@@ -122,7 +122,8 @@ Incremental search
 
         The dictionary files are included in the binary package of C/Migemo,
 
-        http://cmigemo.googlecode.com/files/cmigemo-default-win64-20110227.zip
+        https://files.kaoriya.net/goto/cmigemo_w64
+        
 
 
 Install/Uninstall
@@ -137,12 +138,11 @@ Install
          Name                  Comment
         ====================  ==========================================================
          keyhac.exe            Application program main body
-         python35.dll          Python runtime library
-         library.zip           Python library archive
+         python3xx.dll         Python runtime library
+         modules               Directory which contains execution modules
          _config.py            Default configuration file
          readme_en.txt         Document to read firstly (English)
          readme_ja.txt         Document to read firstly (Japanese)
-         lib/                  Directory which contains runtime library for execution
          extension/            Directory to put user defined scripts
          theme/                Directory which contains theme files
          dict/                 Directory to put Migemo dictionary files

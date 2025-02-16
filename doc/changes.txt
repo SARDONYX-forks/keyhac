@@ -4,12 +4,14 @@ Changes
 
     **1.83**
 
-        - Switched to Python 3.13
+        - Switched to Python 3.13.
+        - Built for 64bit architecture. Dropped support for 32bit architecture.
+        - Updated packaging structure not to archive Python modules to library.zip.
+        - Added Migemo copyright file.
 
     **1.82**
 
         - Fixed oneshot modifier key behavior (didn't work once right after mouse clicks and wheel move).
-
 
     **1.81**
 
