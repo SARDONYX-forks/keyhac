@@ -41,7 +41,7 @@ ARCHIVE_NAME = "keyhac_%s.zip" % VERSION
 
 DIST_FILES = {
     "keyhac.exe" :          "keyhac/keyhac.exe",
-    "lib" :                 "keyhac/lib",
+    "modules" :             "keyhac/modules",
     "python313.dll" :       "keyhac/python313.dll",
     "_config.py" :          "keyhac/_config.py",
     "readme_en.txt" :       "keyhac/readme_en.txt",
@@ -51,7 +51,6 @@ DIST_FILES = {
     "license" :             "keyhac/license",
     "doc/html_en" :         "keyhac/doc/en",
     "doc/html_ja" :         "keyhac/doc/ja",
-    "library.zip" :         "keyhac/library.zip",
     "dict/.keepme" :        "keyhac/dict/.keepme",
     "extension/.keepme" :   "keyhac/extension/.keepme",
     }
@@ -125,7 +124,7 @@ def target_all():
 def target_compile():
 
     # compile python source files
-    compilePythonRecursively( "c:/python313/Lib", "build/Lib", 
+    compilePythonRecursively( "c:/python313/Lib", "modules/Lib", 
         directory_black_list = [
             "site-packages",
             "test",
@@ -133,10 +132,10 @@ def target_compile():
             "idlelib",
             ]
         )
-    compilePythonRecursively( "c:/python313/Lib/site-packages/PIL", "build/Lib/PIL" )
-    compilePythonRecursively( "../ckit", "build/Lib/ckit" )
-    compilePythonRecursively( "../pyauto", "build/Lib/pyauto" )
-    compilePythonRecursively( ".", "build/Lib", 
+    compilePythonRecursively( "c:/python313/Lib/site-packages/PIL", "modules/Lib/PIL" )
+    compilePythonRecursively( "../ckit", "modules/Lib/ckit" )
+    compilePythonRecursively( "../pyauto", "modules/Lib/pyauto" )
+    compilePythonRecursively( ".", "modules/keyhac", 
         file_black_list = [
             "makefile.py",
             "_config.py",
@@ -144,19 +143,13 @@ def target_compile():
             ]
         )
 
-    # archive python compiled files
-    os.chdir("build/Lib")
-    createZip( "../../library.zip", "." )
-    os.chdir("../..")
-
-
 def target_copy():
 
-    rmtree("lib")
+    rmtree("modules")
 
     shutil.copy( "c:/python313/python313.dll", "python313.dll" )
 
-    shutil.copytree( "c:/Python313/DLLs", "lib", 
+    shutil.copytree( "c:/Python313/DLLs", "modules/DLLs", 
         ignore=shutil.ignore_patterns(
             "tcl*.*",
             "tk*.*",
@@ -171,11 +164,16 @@ def target_copy():
             )
         )
 
-    shutil.copy( "c:/Python313/Lib/site-packages/PIL/_imaging.cp313-win_amd64.pyd", "lib/_imaging.pyd" )
+    makedirs( "modules/Lib/PIL" )
+    shutil.copy( "c:/Python313/Lib/site-packages/PIL/_imaging.cp313-win_amd64.pyd", "modules/Lib/PIL/_imaging.pyd" )
 
-    shutil.copy( "../ckit/ckitcore.pyd", "lib/ckitcore.pyd" )
-    shutil.copy( "../pyauto/pyautocore.pyd", "lib/pyautocore.pyd" )
-    shutil.copy( "migemo.dll", "lib/migemo.dll" )
+    makedirs( "modules/Lib/ckit" )
+    shutil.copy( "../ckit/ckitcore.pyd", "modules/Lib/ckit/ckitcore.pyd" )
+
+    makedirs( "modules/Lib/pyauto" )
+    shutil.copy( "../pyauto/pyautocore.pyd", "modules/Lib/pyauto/pyautocore.pyd" )
+
+    shutil.copy( "migemo.dll", "modules/DLLs/migemo.dll" )
 
 
 def target_document():
@@ -246,7 +244,6 @@ def target_clean():
     rmtree("build")
     rmtree("doc/html_en")
     rmtree("doc/html_ja")
-    unlink( "tags" )
 
 
 #-------------------------------------------

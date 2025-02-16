@@ -13,9 +13,6 @@
 #include "Python.h"
 #endif
 
-//FIXME : debugging error in Release build
-#undef _DEBUG
-
 #define PYTHON_INSTALL_PATH L"C:\\Python313"
 
 //--------------------------------------
@@ -60,48 +57,11 @@ static int AppMain()
 			free(buf);
 		}
 
-		env_path = exe_dir + L"/lib;" + env_path;
+		env_path = exe_dir + L"/modules/DLLs;" + env_path;
 
 		SetEnvironmentVariable(L"PATH", env_path.c_str());
 	}
 
-	/*
-	// Python home
-	{
-#if defined(_DEBUG)
-		Py_SetPythonHome(PYTHON_INSTALL_PATH);
-#else
-		Py_SetPythonHome(const_cast<wchar_t*>(exe_dir.c_str()));
-#endif //_DEBUG
-	}
-	*/
-
-	/*
-	// Python module search path
-	{
-		std::wstring python_path;
-
-		python_path += exe_dir + L"/extension;";
-		
-		#if defined(_DEBUG)
-		python_path += exe_dir + L";";
-		python_path += exe_dir + L"/..;";
-		python_path += std::wstring(PYTHON_INSTALL_PATH) + L"\\Lib;";
-		python_path += std::wstring(PYTHON_INSTALL_PATH) + L"\\Lib\\site-packages;";
-		python_path += std::wstring(PYTHON_INSTALL_PATH) + L"\\DLLs;";
-		#else
-		python_path += exe_dir + L"/library.zip;";
-		python_path += exe_dir + L"/lib;";
-		#endif
-		
-		Py_SetPath(python_path.c_str());
-	}
-
-	// Initialization
-	Py_Initialize();
-	*/
-
-	
 	// Initialize Python
 	{
 		PyConfig config;
@@ -112,6 +72,7 @@ static int AppMain()
 		config.module_search_paths_set = 1;
 
 		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/extension").c_str() );
+
 #if defined(_DEBUG)
 		PyWideStringList_Append(&config.module_search_paths, exe_dir.c_str());
 		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/..").c_str());
@@ -119,8 +80,9 @@ static int AppMain()
 		PyWideStringList_Append(&config.module_search_paths, (std::wstring(PYTHON_INSTALL_PATH) + L"\\Lib\\site-packages").c_str());
 		PyWideStringList_Append(&config.module_search_paths, (std::wstring(PYTHON_INSTALL_PATH) + L"\\DLLs").c_str());
 #else
-		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/library.zip").c_str());
-		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/lib").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/modules/keyhac").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/modules/Lib").c_str());
+		PyWideStringList_Append(&config.module_search_paths, (exe_dir + L"/modules/DLLs").c_str());
 #endif
 
 		/*
@@ -134,7 +96,6 @@ static int AppMain()
 		Py_InitializeFromConfig(&config);
 		PyConfig_Clear(&config);
 	}
-
 
 	/*
 	// Setup sys.argv
@@ -171,7 +132,7 @@ static int AppMain()
 	return 0;
 }
 
-//#if ! defined(_DEBUG)
+#if ! defined(_DEBUG)
 
 int WINAPI WinMain(
 	HINSTANCE hInstance,      /* handle to current instance */
@@ -180,16 +141,14 @@ int WINAPI WinMain(
 	int nCmdShow              /* show state of window */
 	)
 {
-	printf("Hello from WinMain()\n");
 	return AppMain();
 }
 
-//#else
+#else
 
 int main(int argc, const char * argv[])
 {
-	printf("Hello from main()\n");
 	return AppMain();
 }
 
-//#endif
+#endif

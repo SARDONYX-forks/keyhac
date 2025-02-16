@@ -9,7 +9,7 @@ doc/html_ja/
 doc/html_en/
 build/
 Release/
-lib/
+modules/
 library.zip
 Debug/
 keyhac.VC.opendb
